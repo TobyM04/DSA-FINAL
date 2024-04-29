@@ -1,0 +1,66 @@
+/* details.css */
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* General Body Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #f8f9fa; /* Light text */
+    background: #343a40; /* Dark background */
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Container for Details Content */
+.details-container {
+    background-color: #212529; /* Dark background */
+    color: #f8f9fa; /* Light text */
+    padding: 2rem; /* Consistent padding */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+}
+
+/* Bootstrap table styles for dark mode */
+.table-dark {
+    --bs-table-bg: #343a40;
+    --bs-table-striped-color: #f8f9fa;
+    --bs-table-striped-bg: #454d55;
+    --bs-table-active-color: #f8f9fa;
+    --bs-table-active-bg: #495057;
+    --bs-table-hover-color: #f8f9fa;
+    --bs-table-hover-bg: #5a6268;
+}
+
+/* Full-page background image */
+.full-background {
+    position: fixed; /* Fixed position to cover the entire screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover; /* Cover the entire screen size */
+    background-position: center; /* Center the image */
+    z-index: -1; /* Ensure this is behind all other content */
+}
+
+/* Dark overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay, adjust opacity as needed */
+    z-index: 1; /* Above the background image, below everything else */
+}
+
+.home-button {
+    position: fixed; /* Fixed positioning to stick at the bottom left */
+    bottom: 20px; /* 20px from the bottom */
+    left: 20px; /* 20px from the left */
+    z-index: 1000; /* Ensure it's above other content */
+}

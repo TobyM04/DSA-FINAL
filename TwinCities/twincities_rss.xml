@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+<channel>
+    <title>Twin Cities Exploration Updates</title>
+    <link>http://localhost/TwinCitiesUpdated6/Index.php</link>
+    <description>Latest updates on points of interest and weather in the Twin Cities</description>
+    <item>
+        <title>New Point of Interest: The Historic Museum</title>
+        <link>http://localhost/TwinCitiesUpdated6/Index.php</link>
+        <description>The Historic Museum is now open for visitors. Come explore the history of the Twin Cities.</description>
+        <pubDate>Tue, 07 Mar 2024 09:00:00 GMT</pubDate>
+    </item>
+    <item>
+        <title>Weather Update: Sunny Skies Ahead!</title>
+        <link>http://localhost/TwinCitiesUpdated6/Index.php</link>
+        <description>The forecast for the next week shows sunny skies with no chance of rain. Enjoy the outdoors!</description>
+        <pubDate>Mon, 06 Mar 2024 09:00:00 GMT</pubDate>
+    </item>
+    
+</channel>
+</rss>

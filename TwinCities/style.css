@@ -1,0 +1,190 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#map {
+    margin: 20px auto;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+}
+
+#weather, #pointsOfInterest {
+    margin: 20px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #017bff;
+}
+
+/* Base Styling for Both Comments Sections */
+.commentsSection {
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    max-width: 600px; /* Set a max-width for the comments section */
+}
+
+.commentsForm {
+    display: flex;
+    align-items: center; /* Align form elements vertically */
+    gap: 10px;
+    flex-wrap: wrap; /* Allows form items to wrap onto the next line on smaller screens */
+}
+
+.commentsForm label,
+.commentsForm input[type="text"],
+.commentsForm textarea,
+.commentsForm button {
+    flex-grow: 1;
+    margin-bottom: 10px; /* Add some bottom margin for spacing */
+}
+
+.commentsForm label {
+    flex-basis: 100%; /* Full width for labels */
+    margin-bottom: 5px; /* Add some bottom margin for spacing */
+}
+
+.commentsForm input[type="text"],
+.commentsForm textarea {
+    flex-basis: calc(50% - 10px); /* Adjust the width of input fields, subtracting the gap */
+    padding: 8px;
+}
+
+.commentsForm button {
+    flex-basis: auto; /* Allow the button to grow as needed */
+    padding: 8px 15px;
+    background-color: #017bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Styling for Canterbury Comments */
+#canterburyCommentsSection {
+    /* Add any specific styles for Canterbury comments section here */
+}
+
+#canterburyCommentsDisplay {
+    background-color: #f8f8f8; /* Slightly different background for distinction */
+    /* Rest of the styles same as #commentsDisplay */
+}
+
+/* Styling for Reims Comments */
+#reimsCommentsSection {
+    /* Add any specific styles for Reims comments section here */
+}
+
+#reimsCommentsDisplay {
+    background-color: #f0f0f0; /* Slightly different background for distinction */
+    /* Rest of the styles same as #commentsDisplay */
+}
+
+/* You may want to add specific identifiers for your buttons if they have different actions */
+.commentsForm button.submitCanterbury {
+    /* Styles for Canterbury submit button */
+}
+
+.commentsForm button.submitReims {
+    /* Styles for Reims submit button */
+}
+
+/* Rest of your styles... */
+
+
+
+
+
+/* Inline styles from Index.php moved below */
+body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url('IndexBackground.png') no-repeat center center fixed;
+        background-size: cover;
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 20px;
+    }
+    .map-container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+    }
+    #mapCanterbury, #mapReims {
+        height: 400px;
+        flex: 1;
+        margin: 5px;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #weatherContainer {
+        display: flex;
+        justify-content: space-between;
+        margin: 20px;
+    }
+    .weatherSection {
+        flex: 1;
+        margin: 5px;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    #canterburyWeather {
+        margin-right: 10px;
+    }
+    #reimsWeather {
+        margin-left: 10px;
+    }
+    .comment-box {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px; /* Add space between the boxes */
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment-list {
+        max-height: 400px; /* Adjust height as needed */
+        overflow-y: auto; /* Enable scrolling for overflow */
+        margin-top: 20px; /* Space between the form and the comment list */
+    }
+
+    .pointsOfInterestContainer {
+        margin-top: 20px; /* Adjust this value to align under the weather section */
+    }
+
+    .pointsOfInterestSection {
+        background-color: #fff;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-right: 10px; /* Margin adjustment for Canterbury */
+        margin-left: 10px; /* Margin adjustment for Reims */
+    }
+
+        /* Rest of  mainpage.php styles can be included here */
+
+
+

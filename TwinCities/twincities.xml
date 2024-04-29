@@ -1,0 +1,458 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 5.2.0
+- https://www.phpmyadmin.net
+-
+- Host: localhost:3306
+- Generation Time: Feb 27, 2024 at 04:00 PM
+- Server version: 8.0.30
+- PHP Version: 8.1.10
+-->
+<pma_xml_export xmlns:pma="https://www.phpmyadmin.net/some_doc_url/" version="1.0">
+    <!--
+    - Structure schemas
+    -->
+    <pma:structure_schemas>
+        <pma:database name="twincities" collation="utf8mb4_0900_ai_ci" charset="utf8mb4">
+            <pma:table name="category">
+                CREATE TABLE `category` (
+                  `CategoryID` int NOT NULL AUTO_INCREMENT,
+                  `Name` varchar(45) NOT NULL,
+                  PRIMARY KEY (`CategoryID`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="categoryhaspoi">
+                CREATE TABLE `categoryhaspoi` (
+                  `CategoryID` int NOT NULL,
+                  `PlaceID` int NOT NULL,
+                  PRIMARY KEY (`CategoryID`,`PlaceID`),
+                  KEY `PlaceID` (`PlaceID`),
+                  CONSTRAINT `categoryhaspoi_ibfk_1` FOREIGN KEY (`CategoryID`) REFERENCES `category` (`CategoryID`) ON DELETE CASCADE ON UPDATE CASCADE,
+                  CONSTRAINT `categoryhaspoi_ibfk_2` FOREIGN KEY (`PlaceID`) REFERENCES `placeofinterest` (`PlaceID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="city">
+                CREATE TABLE `city` (
+                  `CityID` int NOT NULL AUTO_INCREMENT,
+                  `CityName` varchar(100) NOT NULL,
+                  `Country` varchar(100) NOT NULL,
+                  `Population` int DEFAULT NULL,
+                  `GeoLocation` varchar(255) DEFAULT NULL,
+                  `Currency` varchar(50) DEFAULT NULL,
+                  `TimeZone` varchar(50) DEFAULT NULL,
+                  `OfficialLanguage` varchar(50) DEFAULT NULL,
+                  `Area` decimal(10,2) DEFAULT NULL,
+                  `Climate` varchar(255) DEFAULT NULL,
+                  `Government` varchar(255) DEFAULT NULL,
+                  PRIMARY KEY (`CityID`)
+                ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="comments">
+                CREATE TABLE `comments` (
+                  `id` int NOT NULL AUTO_INCREMENT,
+                  `cityId` int NOT NULL,
+                  `username` varchar(255) NOT NULL,
+                  `comment` text NOT NULL,
+                  `posted_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+                  PRIMARY KEY (`id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="culturalevent">
+                CREATE TABLE `culturalevent` (
+                  `EventID` int NOT NULL AUTO_INCREMENT,
+                  `CityID` int DEFAULT NULL,
+                  `Name` varchar(255) NOT NULL,
+                  `StartDate` date DEFAULT NULL,
+                  `EndDate` date DEFAULT NULL,
+                  `Description` text,
+                  PRIMARY KEY (`EventID`),
+                  KEY `CityID` (`CityID`),
+                  CONSTRAINT `culturalevent_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `city` (`CityID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="economy">
+                CREATE TABLE `economy` (
+                  `EconomyID` int NOT NULL AUTO_INCREMENT,
+                  `CityID` int DEFAULT NULL,
+                  `Sector` varchar(255) DEFAULT NULL,
+                  `EmploymentPercentage` decimal(5,2) DEFAULT NULL,
+                  `Employees` int DEFAULT NULL,
+                  `Description` text,
+                  PRIMARY KEY (`EconomyID`),
+                  KEY `CityID` (`CityID`),
+                  CONSTRAINT `economy_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `city` (`CityID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="images">
+                CREATE TABLE `images` (
+                  `ImageID` int NOT NULL AUTO_INCREMENT,
+                  `ImageName` varchar(50) DEFAULT NULL,
+                  `FileLocation` varchar(255) DEFAULT NULL,
+                  `ImageDescription` varchar(255) DEFAULT NULL,
+                  `CityID` int DEFAULT NULL,
+                  `PlaceID` int DEFAULT NULL,
+                  PRIMARY KEY (`ImageID`),
+                  KEY `CityID` (`CityID`),
+                  KEY `PlaceID` (`PlaceID`),
+                  CONSTRAINT `images_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `city` (`CityID`) ON DELETE CASCADE ON UPDATE CASCADE,
+                  CONSTRAINT `images_ibfk_2` FOREIGN KEY (`PlaceID`) REFERENCES `placeofinterest` (`PlaceID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="placeofinterest">
+                CREATE TABLE `placeofinterest` (
+                  `PlaceID` int NOT NULL AUTO_INCREMENT,
+                  `CityID` int DEFAULT NULL,
+                  `Name` varchar(255) NOT NULL,
+                  `Type` varchar(255) DEFAULT NULL,
+                  `Capacity` int DEFAULT NULL,
+                  `GeoLocation` varchar(255) DEFAULT NULL,
+                  `Photos` text,
+                  `Description` text,
+                  `NotableLandmarks` text,
+                  PRIMARY KEY (`PlaceID`),
+                  KEY `CityID` (`CityID`),
+                  CONSTRAINT `placeofinterest_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `city` (`CityID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="transportation">
+                CREATE TABLE `transportation` (
+                  `TransportID` int NOT NULL AUTO_INCREMENT,
+                  `CityID` int DEFAULT NULL,
+                  `Type` varchar(100) DEFAULT NULL,
+                  `Name` varchar(255) DEFAULT NULL,
+                  `Location` varchar(255) DEFAULT NULL,
+                  PRIMARY KEY (`TransportID`),
+                  KEY `CityID` (`CityID`),
+                  CONSTRAINT `transportation_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `city` (`CityID`) ON DELETE CASCADE ON UPDATE CASCADE
+                ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+            <pma:table name="weather">
+                CREATE TABLE `weather` (
+                  `WeatherID` int NOT NULL AUTO_INCREMENT,
+                  `CityID` int DEFAULT NULL,
+                  `Temperature` decimal(5,2) DEFAULT NULL,
+                  `Description` text,
+                  `ObservationTime` datetime DEFAULT NULL,
+                  PRIMARY KEY (`WeatherID`),
+                  KEY `CityID` (`CityID`),
+                  CONSTRAINT `weather_ibfk_1` FOREIGN KEY (`CityID`) REFERENCES `city` (`CityID`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            </pma:table>
+        </pma:database>
+    </pma:structure_schemas>
+
+    <!--
+    - Database: 'twincities'
+    -->
+    <database name="twincities">
+        <!-- Table category -->
+        <!-- Table categoryhaspoi -->
+        <!-- Table city -->
+        <table name="city">
+            <column name="CityID">1</column>
+            <column name="CityName">Canterbury</column>
+            <column name="Country">United Kingdom</column>
+            <column name="Population">156600</column>
+            <column name="GeoLocation">East Kent, Southeast England</column>
+            <column name="Currency">GBP</column>
+            <column name="TimeZone">GMT</column>
+            <column name="OfficialLanguage">English</column>
+            <column name="Area">24.00</column>
+            <column name="Climate">Oceanic Climate – Mild Temperatures all year round</column>
+            <column name="Government">Canterbury City Council</column>
+        </table>
+        <table name="city">
+            <column name="CityID">2</column>
+            <column name="CityName">Reims</column>
+            <column name="Country">France</column>
+            <column name="Population">182262</column>
+            <column name="GeoLocation">North-East, Region Grand Est</column>
+            <column name="Currency">EUR</column>
+            <column name="TimeZone">CET</column>
+            <column name="OfficialLanguage">French</column>
+            <column name="Area">46.90</column>
+            <column name="Climate">Oceanic Climate – influenced by inland position – Gloomy Climate prone to hot and cold extremes</column>
+            <column name="Government">Marne, Department 51</column>
+        </table>
+        <!-- Table comments -->
+       <comments_data>
+            <comment>
+                <id>1</id>
+                <cityId>1</cityId>
+                <username>JohnDoe</username>
+                <commentText>Great place to visit!</commentText>
+                <posted_at>2024-02-29T12:34:56</posted_at>
+            </comment>
+            <!-- Additional comments go here -->
+        </comments_data>
+        <!-- Table culturalevent -->
+        <table name="culturalevent">
+            <column name="EventID">5</column>
+            <column name="CityID">1</column>
+            <column name="Name">Canterbury Festival</column>
+            <column name="StartDate">2023-10-15</column>
+            <column name="EndDate">2023-11-02</column>
+            <column name="Description">An annual arts and culture festival.</column>
+        </table>
+        <table name="culturalevent">
+            <column name="EventID">6</column>
+            <column name="CityID">2</column>
+            <column name="Name">Johannine feasts</column>
+            <column name="StartDate">2023-05-25</column>
+            <column name="EndDate">2023-05-26</column>
+            <column name="Description">A local festivity in Reims.</column>
+        </table>
+        <!-- Table economy -->
+        <table name="economy">
+            <column name="EconomyID">1</column>
+            <column name="CityID">1</column>
+            <column name="Sector">Education</column>
+            <column name="EmploymentPercentage">20.00</column>
+            <column name="Employees">12000</column>
+            <column name="Description">Education sector accounts for about 20% of employment.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">2</column>
+            <column name="CityID">1</column>
+            <column name="Sector">Retail and Distribution</column>
+            <column name="EmploymentPercentage">19.00</column>
+            <column name="Employees">11500</column>
+            <column name="Description">Retail and distribution services employing 19%.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">3</column>
+            <column name="CityID">1</column>
+            <column name="Sector">Health and Welfare</column>
+            <column name="EmploymentPercentage">16.00</column>
+            <column name="Employees">11000</column>
+            <column name="Description">Health and welfare services account for 16%.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">4</column>
+            <column name="CityID">1</column>
+            <column name="Sector">Hospitality, Tourism, and Leisure</column>
+            <column name="EmploymentPercentage">10.00</column>
+            <column name="Employees">NULL</column>
+            <column name="Description">Hospitality, tourism, and leisure account for 10%.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">5</column>
+            <column name="CityID">1</column>
+            <column name="Sector">Professional and Technical Services</column>
+            <column name="EmploymentPercentage">6.00</column>
+            <column name="Employees">3500</column>
+            <column name="Description">Professional and technical services account for 6%.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">6</column>
+            <column name="CityID">2</column>
+            <column name="Sector">Tourism</column>
+            <column name="EmploymentPercentage">15.00</column>
+            <column name="Employees">5000</column>
+            <column name="Description">Tourism is Tourism is a significant sector in Reims, driven by its rich history, architecture, and status as a UNESCO World Heritage site. Attractions include its cathedral, palaces, and proximity to the Champagne wine region.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">7</column>
+            <column name="CityID">2</column>
+            <column name="Sector">Manafacturing</column>
+            <column name="EmploymentPercentage">20.00</column>
+            <column name="Employees">7000</column>
+            <column name="Description">Manufacturing in Reims includes a variety of sectors, but is notably anchored by the Champagne production. Other areas include machinery, automotive parts, and food processing.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">8</column>
+            <column name="CityID">2</column>
+            <column name="Sector">Retail</column>
+            <column name="EmploymentPercentage">10.00</column>
+            <column name="Employees">3000</column>
+            <column name="Description">The retail sector in Reims benefits from both local residents and tourists. It includes a mix of shopping centers, boutique shops, and markets that cater to a wide range of needs and preferences.</column>
+        </table>
+        <table name="economy">
+            <column name="EconomyID">9</column>
+            <column name="CityID">2</column>
+            <column name="Sector">Wine Industry</column>
+            <column name="EmploymentPercentage">NULL</column>
+            <column name="Employees">NULL</column>
+            <column name="Description">City’s economy is driven by the wine industry.</column>
+        </table>
+        <!-- Table images -->
+        <!-- Table placeofinterest -->
+        <table name="placeofinterest">
+            <column name="PlaceID">1</column>
+            <column name="CityID">1</column>
+            <column name="Name">Canterbury Cathedral</column>
+            <column name="Type">Historical</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">51.2798,1.0828</column>
+            <column name="Photos">CanterburyCathedral.jpeg</column>
+            <column name="Description">A historical cathedral in Canterbury.</column>
+            <column name="NotableLandmarks">Bell Harry Tower</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">2</column>
+            <column name="CityID">1</column>
+            <column name="Name">Abbey of St Augustine</column>
+            <column name="Type">Religious Site</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">51.2815,1.0965</column>
+            <column name="Photos">AbbeyofStAugustine.jpg</column>
+            <column name="Description">Historical abbey in Canterbury.</column>
+            <column name="NotableLandmarks">St Augustine's Abbey</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">3</column>
+            <column name="CityID">2</column>
+            <column name="Name">Maison Ruinart</column>
+            <column name="Type">Wine Production</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">49.2475,4.0567</column>
+            <column name="Photos">MaisonRuinart.jpg</column>
+            <column name="Description">Founded in 1729, Maison Ruinart is the oldest established Champagne house, offering visitors tours of its cellars and tastings of its prestigious champagne.</column>
+            <column name="NotableLandmarks">Ruinart's Crayères</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">4</column>
+            <column name="CityID">2</column>
+            <column name="Name">Reims Cathedral</column>
+            <column name="Type">Religious Site</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">49.2530,4.0341</column>
+            <column name="Photos">ReimsCathedral.jpg</column>
+            <column name="Description">A famous cathedral in Reims.</column>
+            <column name="NotableLandmarks">Palace of Tau</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">13</column>
+            <column name="CityID">1</column>
+            <column name="Name">St. Martin's Church</column>
+            <column name="Type">Historical</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">51.2794,1.0821</column>
+            <column name="Photos">StMartinsChurch.jpg</column>
+            <column name="Description">The oldest church in continuous use in the English-speaking world.</column>
+            <column name="NotableLandmarks">Oldest Parish Church</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">14</column>
+            <column name="CityID">1</column>
+            <column name="Name">Canterbury Roman Museum</column>
+            <column name="Type">Museum</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">51.2806,1.0785</column>
+            <column name="Photos">CanterburyRomanMuseum.jpg</column>
+            <column name="Description">Offers a glimpse into the city's Roman past.</column>
+            <column name="NotableLandmarks">Roman Pavement</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">15</column>
+            <column name="CityID">1</column>
+            <column name="Name">Westgate Gardens</column>
+            <column name="Type">Nature</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">51.2825,1.0784</column>
+            <column name="Photos">WestgateGardens.jpg</column>
+            <column name="Description">Beautiful historic gardens along the River Stour.</column>
+            <column name="NotableLandmarks">Westgate Tower</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">16</column>
+            <column name="CityID">1</column>
+            <column name="Name">The Beaney House of Art &amp; Knowledge</column>
+            <column name="Type">Cultural</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">51.2787,1.0804</column>
+            <column name="Photos">TheBeaneyHouseofArtKnowledge.jpg</column>
+            <column name="Description">A museum, library, and art gallery in one.</column>
+            <column name="NotableLandmarks">Victorian Architecture</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">17</column>
+            <column name="CityID">2</column>
+            <column name="Name">Palais du Tau</column>
+            <column name="Type">Historical</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">49.2539,4.0346</column>
+            <column name="Photos">PalaisduTau.jpg</column>
+            <column name="Description">A former palace of the Archbishop of Reims, adjacent to the Reims Cathedral.</column>
+            <column name="NotableLandmarks">Tau Palace</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">18</column>
+            <column name="CityID">2</column>
+            <column name="Name">Fort de la Pompelle</column>
+            <column name="Type">Museum</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">49.2006,4.1567</column>
+            <column name="Photos">FortdelaPompelle.jpg</column>
+            <column name="Description">A fortification with a museum dedicated to World War I.</column>
+            <column name="NotableLandmarks">Great War Artifacts</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">19</column>
+            <column name="CityID">2</column>
+            <column name="Name">Place Royale</column>
+            <column name="Type">Historical</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">49.2578,4.0317</column>
+            <column name="Photos">PlaceRoyale.jpg</column>
+            <column name="Description">A historic square with a statue of Louis XV.</column>
+            <column name="NotableLandmarks">Louis XV Statue</column>
+        </table>
+        <table name="placeofinterest">
+            <column name="PlaceID">20</column>
+            <column name="CityID">2</column>
+            <column name="Name">Parc de Champagne</column>
+            <column name="Type">Nature</column>
+            <column name="Capacity">NULL</column>
+            <column name="GeoLocation">49.2432,4.0517</column>
+            <column name="Photos">ParcdeChampagne.jpg</column>
+            <column name="Description">A vast park ideal for walks and picnics, hosting events and festivals.</column>
+            <column name="NotableLandmarks">Champagne Vineyards</column>
+        </table>
+        <!-- Table transportation -->
+        <table name="transportation">
+            <column name="TransportID">1</column>
+            <column name="CityID">1</column>
+            <column name="Type">Bus Station</column>
+            <column name="Name">Canterbury Bus Station</column>
+            <column name="Location">Central Canterbury</column>
+        </table>
+        <table name="transportation">
+            <column name="TransportID">2</column>
+            <column name="CityID">1</column>
+            <column name="Type">Train Station</column>
+            <column name="Name">Canterbury West</column>
+            <column name="Location">Central Canterbury</column>
+        </table>
+        <table name="transportation">
+            <column name="TransportID">3</column>
+            <column name="CityID">1</column>
+            <column name="Type">Train Station</column>
+            <column name="Name">Canterbury East</column>
+            <column name="Location">Central Canterbury</column>
+        </table>
+        <table name="transportation">
+            <column name="TransportID">4</column>
+            <column name="CityID">2</column>
+            <column name="Type">Bus</column>
+            <column name="Name">Citura Network</column>
+            <column name="Location">Reims</column>
+        </table>
+        <table name="transportation">
+            <column name="TransportID">5</column>
+            <column name="CityID">2</column>
+            <column name="Type">Shuttle</column>
+            <column name="Name">City Bus</column>
+            <column name="Location">Reims</column>
+        </table>
+        <table name="transportation">
+            <column name="TransportID">6</column>
+            <column name="CityID">2</column>
+            <column name="Type">Park</column>
+            <column name="Name">Parc Naturel Régional de la Montagne de Reims</column>
+            <column name="Location">Reims</column>
+        </table>
+        <!-- Table weather -->
+    </database>
+<comment cityId="1"><username>ello</username><commentText>ELLO</commentText><postedAt>2024-03-13 18:45:20</postedAt></comment><comment cityId="1"><username>Hi</username><commentText>Hi</commentText><postedAt>2024-03-15 14:04:43</postedAt></comment><comment cityId="2"><username>Hello</username><commentText>Hello</commentText><postedAt>2024-03-15 14:04:49</postedAt></comment><comment cityId="1"><username>hi</username><commentText>hi</commentText><postedAt>2024-03-15 14:20:58</postedAt></comment><comment cityId="1"><username>hi</username><commentText>hi</commentText><postedAt>2024-03-15 14:27:15</postedAt></comment><comment cityId="1"><username>Toby McClean</username><commentText>I love Canterbury! </commentText><postedAt>2024-03-15 14:28:55</postedAt></comment><comment cityId="1"><username>righty</username><commentText>righty</commentText><postedAt>2024-03-15 14:30:00</postedAt></comment><comment cityId="2"><username>Siuuuu</username><commentText>Siuuu</commentText><postedAt>2024-03-15 14:30:14</postedAt></comment><comment cityId="1"><username>hello</username><commentText>hello</commentText><postedAt>2024-03-15 14:43:29</postedAt></comment><comment cityId="1"><username>hi</username><commentText>HI</commentText><postedAt>2024-03-15 14:45:30</postedAt></comment><comment cityId="1"><username>ello</username><commentText>ello</commentText><postedAt>2024-03-15 14:50:16</postedAt></comment><comment cityId="2"><username>ello</username><commentText>ello</commentText><postedAt>2024-03-15 14:50:17</postedAt></comment><comment cityId="1"><username>ello</username><commentText>ello</commentText><postedAt>2024-03-15 15:00:31</postedAt></comment><comments_data><comment><cityId>1</cityId><username>Righty</username><commentText>Righty</commentText><postedAt>2024-03-15 15:07:33</postedAt></comment><comment><cityId>1</cityId><username>Toby McClean</username><commentText>I love Canterbury it is a hoot</commentText><postedAt>2024-03-15 15:07:49</postedAt></comment><comment><cityId>2</cityId><username>Toby</username><commentText>I love Reims! Best place in France!</commentText><postedAt>2024-03-15 15:08:02</postedAt></comment><comment><cityId>1</cityId><username>Toby McClean</username><commentText>The Comments Work!</commentText><postedAt>2024-03-15 15:09:47</postedAt></comment><comment><cityId>2</cityId><username>Toby</username><commentText>Who can believe that this website is so cool!</commentText><postedAt>2024-03-15 15:15:58</postedAt></comment><comment><cityId>1</cityId><username>hi</username><commentText>hi</commentText><postedAt>2024-03-15 15:34:19</postedAt></comment><comment><cityId>2</cityId><username>Toby</username><commentText>My favourite point of interest is Reims Cathedral.</commentText><postedAt>2024-03-15 15:47:44</postedAt></comment><comment><cityId>2</cityId><username>Toby</username><commentText>Reims is the pefect place for Canterbury's Twin City</commentText><postedAt>2024-03-15 15:50:32</postedAt></comment><comment><cityId>1</cityId><username>Toby</username><commentText>Testing</commentText><postedAt>2024-03-15 21:40:55</postedAt></comment><comment><cityId>2</cityId><username>Toby</username><commentText>Reims Test</commentText><postedAt>2024-03-15 21:49:28</postedAt></comment><comment><cityId>1</cityId><username>Toby</username><commentText>Canterbury is famous for its pasties!</commentText><postedAt>2024-03-15 22:13:42</postedAt></comment><comment><cityId>1</cityId><username>Toby</username><commentText>Wow, I never knew how big Canterbury was.</commentText><postedAt>2024-03-25 22:39:55</postedAt></comment><comment><cityId>2</cityId><username>Toby</username><commentText>Hello</commentText><postedAt>2024-03-25 22:40:08</postedAt></comment><comment><cityId>1</cityId><username>Toby McClean</username><commentText>Latest test of comments</commentText><postedAt>2024-04-28 15:47:49</postedAt></comment></comments_data></pma_xml_export>

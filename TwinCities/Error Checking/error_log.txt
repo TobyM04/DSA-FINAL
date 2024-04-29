@@ -1,0 +1,14 @@
+Error: [1024] Test error for custom error handler
+Occurred on line 5 in file C:\laragon\www\TwinCitiesUpdated15\triggererror.php
+Error: [1024] Test error for custom error handler
+Occurred on line 5 in file C:\laragon\www\TwinCitiesUpdated15\triggererror.php
+Error: [1024] Test error for custom error handler
+Occurred on line 5 in file C:\laragon\www\TwinCitiesUpdated15\triggererror.php
+Error: [2] Undefined variable $photoPath
+Occurred on line 59 in file C:\laragon\www\TwinCitiesUpdated17\details.php
+Error: [2] Undefined variable $photoPath
+Occurred on line 67 in file C:\laragon\www\TwinCitiesUpdated17\details.php
+Error: [2] Undefined variable $photoPath
+Occurred on line 59 in file C:\laragon\www\TwinCitiesUpdated17\details.php
+Error: [2] Undefined variable $photoPath
+Occurred on line 67 in file C:\laragon\www\TwinCitiesUpdated17\details.php
